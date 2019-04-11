@@ -6,15 +6,15 @@ v_command = ''
 def test_harvard():
     harvard = sr.AudioFile('harvard.wav')
     with harvard as source:
-	audio = r.record(source)
-	try:
-	    v_command = r.recognize_sphinx(audio, keyword_entries=[('forward',1.0),('backward',1.0),('left',1.0),('right',1.0),('stop',1.0),('harvard', 1.0)])        #You can add your own command here
-	    print(v_command)
-	except sr.UnknownValueError:
-	    print("say again")
-	except sr.RequestError as e:
-	    print(e)
-	    pass
+        audio = r.record(source)
+        try:
+            v_command = r.recognize_sphinx(audio, keyword_entries=[('forward',1.0),('backward',1.0),('left',1.0),('right',1.0),('stop',1.0),('harvard', 1.0)])        #You can add your own command here
+            print(v_command)
+        except sr.UnknownValueError:
+            print("say again")
+        except sr.RequestError as e:
+            print(e)
+            pass
 
 
 def run():
