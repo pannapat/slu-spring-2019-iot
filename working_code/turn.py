@@ -34,7 +34,7 @@ def num_import_int(initial):        #Call this function to import data from '.tx
 #import the settings for servos
 vtr_mid_orig    = num_import_int('E_C1:')
 hoz_mid_orig    = num_import_int('E_C2:')
-
+# First, calibrate the servo changing set.txt
 turn_right_max  = num_import_int('turn_right_max:')
 turn_left_max   = num_import_int('turn_left_max:')
 turn_middle     = num_import_int('turn_middle:')
@@ -43,20 +43,19 @@ pwm = Adafruit_PCA9685.PCA9685()
 pwm.set_pwm_freq(60)
 
 def turn_ang(ang):
-    #if ang < turn_right_max:
-     #   ang = turn_right_max
-    #elif ang > turn_left_max:
-    #    ang = turn_left_max
-    #else:
-    #    pass
-    
+    if ang < turn_right_max:
+        ang = turn_right_max
+    elif ang > turn_left_max:
+        ang = turn_left_max
+    else:
+        pass
     pwm.set_pwm(2,0,ang)
 
-def right(ang):
-    pwm.set_pwm(2, 0, ang)
+def right():
+    pwm.set_pwm(2, 0, turn_right_max)
 
-def left(ang):
-    pwm.set_pwm(2, 0, ang)
+def left():
+    pwm.set_pwm(2, 0, turn_left_max)
 
 def middle():
     pwm.set_pwm(2, 0, turn_middle)
