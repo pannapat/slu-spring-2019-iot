@@ -5,4 +5,5 @@ pyttsx==1.1
 setuptools==41.0.0
 SpeechRecognition==3.8.1
 wheel==0.33.1
-pyobjc==5.2
+#pyobjc==5.2
+

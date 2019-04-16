@@ -5,16 +5,29 @@ import turn as t
 
 # Initialization
 m.setup()
-dist = 0.5
+t.middle()
+dist = 0.4
 
-# Loop
-try:
-    m.motorStart(1, m.Dir_forward, 100)
+def stopWhenObstacle():
+    m.motorStart(1, m.Dir_forward, 80)
+    while 1:
+        if u.checkdist() < dist:
+            m.motorStop()
+            break
+
+def turnLeftWhenObstacle():
+    m.motorStart(1, m.Dir_forward, 80)
     while 1:
         if u.checkdist() < dist:
             t.left()
             while u.checkdist() < dist:
                 pass
             t.middle()
+    
+    
+try:
+    stopWhenObstacle()
 except KeyboardInterrupt:
 	m.destroy()
+
+

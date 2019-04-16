@@ -1,3 +1,4 @@
+#!/usr/bin/python2.7
 # works with Python2.7.x
 # import speech_recognition as sr
 # from guessing_game import recognize_speech_from_mic
@@ -10,6 +11,7 @@
 #
 # # m = sr.Microphone()
 
+# USE ESPEAK TO MAKE RUN THE SPEAKER
 
 import speech_recognition as sr
 import pyttsx3
@@ -22,7 +24,7 @@ def run():
         print("Please wait. Calibrating microphone...")
 
         r.adjust_for_ambient_noise(source, duration=2)
-        print('Waiting for a wake-up word ("'+WAKE_UP_WORD +")...')
+        print('Waiting for a wake-up word ("'+WAKE_UP_WORD +'")...')
         audio = r.listen(source)
 
         try:
@@ -34,8 +36,9 @@ def run():
             else:
                 print("I didnt hear any wake-up word.")
         except sr.UnknownValueError:
+            print(word)
             print("Sphinx could not understand audio")
-
+            
 
 def listen(source):
 
@@ -67,3 +70,8 @@ def listen(source):
         engine.say("There's an error")
     
     engine.runAndWait()
+
+
+def speak():
+    engine.say("hello, the engine is working")
+
