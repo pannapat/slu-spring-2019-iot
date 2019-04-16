@@ -12,40 +12,58 @@
 
 
 import speech_recognition as sr
+import pyttsx3
 
 r = sr.Recognizer()
+engine = pyttsx3.init()
+WAKE_UP_WORD = 'good morning'
+def run():
+    with sr.Microphone() as source:
+        print("Please wait. Calibrating microphone...")
 
-# harvard = sr.AudioFile('audio_files/harvard.wav')
-# with harvard as source:
-#     audio = r.record(source)
-# recognize_speech_from_mic(recog, m)
+        r.adjust_for_ambient_noise(source, duration=5)
+        print('Waiting for a wake-up word ("good morning")...')
+        audio = r.listen(source)
 
-# print(type(audio))
-# print(r.recognize_sphinx(audio))
-# print(r.recognize_google(audio))
-#
-# obtain audio from the microphone
-with sr.Microphone() as source:
-    print("Please wait. Calibrating microphone...")
-    # listen for 5 seconds and create the ambient noise energy level
-    r.adjust_for_ambient_noise(source, duration=1)
+        try:
+            word = r.recognize_google(audio)
+            if (word == WAKE_UP_WORD):
+                while (1):
+                    "Listening for commands..."
+                    listen(source)
+            else:
+                print("I didnt hear any wake-up word.")
+        except sr.UnknownValueError:
+            print("Sphinx could not understand audio")
+
+
+def listen(source):
+
     print("Listen for a command...")
+    
+    r.adjust_for_ambient_noise(source, duration=2)
     audio = r.listen(source)
     v_command = ''
     try:
-        print("(recognize_google) Google thinks you said '" + r.recognize_google(audio) + "'")
-        # print("(recognize_sphinx) Google thinks you said '" + r.recognize_sphinx(audio) + "'")
-        # print("(recognize_bing) Google thinks you said '" + r.recognize_bing(audio) + "'")
-        # print("(recognize_google_cloud) Google thinks you said '" + r.recognize_google_cloud(audio) + "'")
-        # print("(recognize_ibm) Google thinks you said '" + r.recognize_ibm(audio) + "'")
+        v_command = r.recognize_google(audio)
+        print("(recognize_google) Google thinks you said '" + v_command + "'")
+
+        # print("(recognize_sphinx) Google thinks you said '" + v_command + "'")
+        # print("(recognize_bing) Google thinks you said '" + v_command + "'")
+        # print("(recognize_google_cloud) Google thinks you said '" + v_command + "'")
+        # print("(recognize_ibm) Google thinks you said '" + v_command + "'")
         # extract_voice_command()
     except sr.UnknownValueError:
         print("Sphinx could not understand audio")
 
-    # recognize speech using Sphinx
-try:
-    print("Sphinx thinks you said '" + r.recognize_sphinx(audio) + "'")
-except sr.UnknownValueError:
-    print("Sphinx could not understand audio")
-except sr.RequestError as e:
-    print("Sphinx error; {0}".format(e))
+    try:
+        print("Sphinx thinks you said '" + v_command + "'")
+        engine.say("I heard you said " + v_command)
+    except sr.UnknownValueError:
+        print("Sphinx could not understand audio")
+        engine.say("I can't recognize any commands")
+    except sr.RequestError as e:
+        print("Sphinx error; {0}".format(e))
+        engine.say("There's an error")
+    
+    engine.runAndWait()
