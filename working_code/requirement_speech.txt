@@ -1,0 +1,7 @@
+pip==19.0.3
+pocketsphinx==0.1.15
+PyAudio==0.2.11
+pyttsx==1.1
+setuptools==41.0.0
+SpeechRecognition==3.8.1
+wheel==0.33.1
