@@ -37,9 +37,11 @@ sudo systemctl stop dnsmasq
 sudo systemctl stop hostapd
 ```
 
-## Make the service run when the Pi boot
+## Make the service run when the Pi boots
 
 ```
 sudo systemctl enable dnsmasq
 sudo systemctl enable hostapd
 ```
+
+See [this tutorial](https://www.raspberrypi.org/documentation/linux/usage/systemd.md) for more details
