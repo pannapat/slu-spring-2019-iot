@@ -16,13 +16,13 @@ import pyttsx3
 
 r = sr.Recognizer()
 engine = pyttsx3.init()
-WAKE_UP_WORD = 'good morning'
+WAKE_UP_WORD = 'hello'
 def run():
     with sr.Microphone() as source:
         print("Please wait. Calibrating microphone...")
 
-        r.adjust_for_ambient_noise(source, duration=5)
-        print('Waiting for a wake-up word ("good morning")...')
+        r.adjust_for_ambient_noise(source, duration=2)
+        print('Waiting for a wake-up word ("'+WAKE_UP_WORD +")...')
         audio = r.listen(source)
 
         try:
@@ -54,16 +54,16 @@ def listen(source):
         # print("(recognize_ibm) Google thinks you said '" + v_command + "'")
         # extract_voice_command()
     except sr.UnknownValueError:
-        print("Sphinx could not understand audio")
+        print("I could not understand audio")
 
     try:
-        print("Sphinx thinks you said '" + v_command + "'")
+        print("I thinks you said '" + v_command + "'")
         engine.say("I heard you said " + v_command)
     except sr.UnknownValueError:
-        print("Sphinx could not understand audio")
+        print("I could not understand audio")
         engine.say("I can't recognize any commands")
     except sr.RequestError as e:
-        print("Sphinx error; {0}".format(e))
+        print("I error; {0}".format(e))
         engine.say("There's an error")
     
     engine.runAndWait()
