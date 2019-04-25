@@ -15,29 +15,29 @@
 
 import speech_recognition as sr
 import pyttsx3
+import os
 
 r = sr.Recognizer()
-engine = pyttsx3.init()
+engine = pyttsx3.init() # may not need this because we change to use espeak
 WAKE_UP_WORD = 'hello'
 def run():
     with sr.Microphone() as source:
         print("Please wait. Calibrating microphone...")
 
         r.adjust_for_ambient_noise(source, duration=2)
-        print('Waiting for a wake-up word ("'+WAKE_UP_WORD +'")...')
         audio = r.listen(source)
+        os.system("espeak 'Say " + WAKE_UP_WORD + " to wake me up...'")
 
         try:
             word = r.recognize_google(audio)
             if (word == WAKE_UP_WORD):
                 while (1):
-                    "Listening for commands..."
+                    os.system("espeak 'Listening for commands...'")
                     listen(source)
             else:
-                print("I didnt hear any wake-up word.")
+                os.system("espeak 'I didnt hear any wake-up word.'")
         except sr.UnknownValueError:
-            print(word)
-            print("Sphinx could not understand audio")
+            os.system("espeak 'I'm sorry. I can't understand that.'")
             
 
 def listen(source):
