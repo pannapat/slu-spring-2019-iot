@@ -30,12 +30,22 @@ def get_class_schedule(class_code, semester="Spring 2019"):
 			idx += 1
 	data = {}
 	if idx == 3:
+		days = days.replace("M", "Monday ")
+		days = days.replace("T", "Tuesday ")
+		days = days.replace("W", "Wednesday ")
+		days = days.replace("R", "Thursday ")
+		days = days.replace("F", "Friday ")
+		days = days.strip()
+
+		hours = hours.replace("-", " to ")
+		hours = hours.replace(":00", "")
+		
 		data['professor'] = professor
 		data['days'] = days
 		data['hours'] = hours
 	json_string = json.dumps(data)
 
-	return json_string
+	return data
 
 if __name__ == "__main__":		
 	print(get_class_schedule(1020))
