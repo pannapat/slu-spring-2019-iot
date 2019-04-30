@@ -22,9 +22,10 @@ def run():
 
                 audio2 = r.listen(source)
                 course_id_str = r.recognize_google(audio2)
+                print(course_id_str)
                 try:
                     course_id = int(course_id_str)
-                    say_class_schedule(3100)
+                    say_class_schedule(course_id)
                 except ValueError:
                     print("I could not recognize any course number.")
             else:
