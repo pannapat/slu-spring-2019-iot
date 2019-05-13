@@ -3,12 +3,17 @@
 from bs4 import BeautifulSoup as BS
 import urllib2
 import json
+import ssl
+
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
 
 def get_class_schedule(class_code, semester="Spring 2019"):
-	URL = "http://cs.slu.edu/academics/courses/csci" + str(class_code)
+	URL = "https://cs.slu.edu/academics/courses/csci" + str(class_code)
 	
 	req = urllib2.Request(url=URL)
-	html = urllib2.urlopen(req)
+	html = urllib2.urlopen(req, context=ctx)
 	soup = BS(html)
 	
 	professor = ""

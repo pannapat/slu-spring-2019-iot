@@ -35,7 +35,7 @@ def run():
                     l.red()
                     try:
                         v_command2 = r.recognize_google(audio2)
-                        print("(recognize_google) Google thinks you said '" + v_command + "'")
+                        print("(recognize_google) Google thinks you said '" + v_command2 + "'")
                         
                         if keywords[0] in v_command2:
                             say_time()
@@ -65,19 +65,21 @@ def run():
 
 def say_time():
     currenttime = time.strftime("%A %B %d, %Y %I:%M %p", time.localtime()) # Thursday 25 Apr 2019 12:04 PM'
-    os.system("espeak 'Today is " + currenttime + "'")
+    espeak.synth("Today is " + currenttime + "")
+    #os.system("espeak 'Today is " + currenttime + "'")
 
 def say_class_schedule(id):
     schedule = util.get_class_schedule(id);
     if schedule == {}:
         response = "Sorry. The course cannot be found"
         print(response)
-        os.system("espeak '"+response+"'");
+        espeak.synth(response)
+        #os.system("espeak '"+response+"'");
     else:
         response = "The course number " + str(id) + " has class on " + schedule['hours'] + ". Every " + schedule['days'] + ". Lectured by professor " + schedule['professor']
         print(response)
-
-        os.system("espeak '"+response+"'")
+        espeak.synth(response)
+        #os.system("espeak '"+response+"'")
 
 if __name__ == "__main__":
     run()

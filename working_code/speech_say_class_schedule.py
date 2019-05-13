@@ -1,3 +1,6 @@
+#!/usr/bin/python2.7
+
+
 import speech_recognition as sr
 import os
 import utility as util
@@ -45,6 +48,9 @@ def say_class_schedule(id):
         print(response)
 
         os.system("espeak '"+response+"'")
+
+if __name__ == "__main__":
+    run()
 
 
 # INPUT: Say "hello" > Say "class" > Say <course no.> e.g. 5300
